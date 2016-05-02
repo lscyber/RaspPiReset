@@ -272,4 +272,5 @@ if [ $tutorial = "1" ]; then
 	read -p ' Press Enter to continue . . . ' Pressenter
 fi
 chown -R pi:pi /home/pi
+cp wpa_supplicant.conf /etc/wpa_supplicant/
 reboot
