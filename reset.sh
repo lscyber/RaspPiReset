@@ -119,6 +119,8 @@ if [ $tutorial = "1" ]; then
 	echo -e " An example hostname would looks like the following: raspberrypi.local\n"
 	echo -e " With the .local domain name, you can use the hostname to connect\n to this device from another device on the same network.\n"
 	echo -e '\e[39m'
+	read -p " Press Enter to continue . . . " pressenter
+	echo
 fi
 chmod 775 raspi-expand-rootfs.sh
 ./raspi-expand-rootfs.sh
