@@ -146,6 +146,13 @@ fi
 umount /home/pi/.gvfs 2> /dev/null
 rm -rf /home/pi
 tar zxC /home/ -f pi.tar.gz
+mkdir /home/pi/Desktop
+mkdir /home/pi/Documents
+mkdir /home/pi/Downloads
+mkdir /home/pi/Music
+mkdir /home/pi/Public
+mkdir /home/pi/Templates
+mkdir /home/pi/Videos
 chown -R pi:pi /home/pi
 #End Clean out Pi's home directory
 
