@@ -108,16 +108,21 @@ hostname $newhostname
 sed -i "s/$oldhostname/$newhostname/g" /etc/hosts
 sed -i "s/$oldhostname/$newhostname/g" /etc/hostname
 
-
-
-
-
-#MISSING STEP 2
-
-
-
-
-
+#Start Extend the file system to maximize storage space
+echo
+echo -e '\e[92m =========================================================='
+echo -e '   Step 2: Extend the file system to maximize storage space'
+echo -e ' =========================================================='
+echo -e '\e[39m'
+if [ $tutorial = "1" ]; then
+	echo -e "\e[93m In computer networking, a hostname is a label that is assigned\n to a device connected to a computer network and is used to identify\n the device in various forms of electronic communications such as\n the World Wide Web.\n"
+	echo -e " An example hostname would looks like the following: raspberrypi.local\n"
+	echo -e " With the .local domain name, you can use the hostname to connect\n to this device from another device on the same network.\n"
+	echo -e '\e[39m'
+fi
+chmod 775 raspi-expand-rootfs.sh
+./raspi-expand-rootfs.sh
+#End Extend the file system to maximize storage space
 
 #Start Clean out Pi's home directory. 
 #For the LSR7 Pi's, we want to make sure nothing is left
