@@ -169,7 +169,10 @@ echo -e '   Step 5: Update any installed packages using the repositories'
 echo -e ' =============================================================='
 echo -e '\e[39m'
 if [ $tutorial = "1" ]; then
-	echo -e "\e[93m Now that the package list has been updated from the repositories\n it is time to update any packages currently installed using\n the available packages online."
+	echo -e "\e[93m Now that the package list has been updated from the repositories"
+	echo -e " it is time to update any packages currently installed using"
+	echo -e " the available packages online."
+	echo -e " This process can take some time."
 	echo -e "\e[39m"
 	read -p " Press Enter to continue . . . " pressenter
 fi
@@ -185,9 +188,9 @@ echo -e " Step 6: Install and Configure Tight VNC Server"
 echo -e ' =============================================='
 echo -e '\e[39m'
 if [ $tutorial = "1" ]; then
-	echo -e '\e93m Tight VNC Server will allow the Raspberry Pi'
+	echo -e "\e[93m Tight VNC Server will allow the Raspberry Pi"
 	echo -e ' to be accessed remotely using the Graphical User Interface.'
-	echo -e '\e39m'
+	echo -e '\e[39m'
 	read -p ' Press Enter to continue . . . ' Pressenter
 fi
 sudo apt-get install tightvncserver -y
@@ -199,7 +202,14 @@ sudo update-rc.d vncserver defaults
 tar zxC /home/pi -f vnc_files.tar.gz
 #End Install and Configure Tight VNC Server
 
+
+
+
 exit 0
+
+
+
+
 
 #Copy startup script and enable printing of hostname and ip to Grove Pi LCD connected to I2C port
 if [ $tutorial = "1" ]; then clear; fi
