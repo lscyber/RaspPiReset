@@ -42,14 +42,14 @@ while true; do
 	echo -e '\e[93m This script will do the following:'
 	echo -e '      1.  Change the hostname to the specified hostname'
 	echo -e '      2.  Extend the file system to maximize storage space'
-	echo -e "      3.  **REMOVE ALL FILES FROM Pi's HOME DIRECTORY**"
+	echo -e "      3.  **RESET PI'S USER TO DEFAULT**"
 	echo -e '      4.  Update the Raspbian repositories'
 	echo -e '      5.  Update any installed packages using the repositories'
 	echo -e '      6.  Install and Configure Tight VNC Server'
-	echo -e "      7.  Reset Pi's user to default"
-	echo -e '      8.  Setup LCD display script for displaying IP address'
-	echo -e '      9.  Download and Replace IoT Dev Labs scripts'
-	echo -e '      10. Download and Replace GrovePi scripts'
+	echo -e '      7.  Setup LCD display script for displaying IP address'
+	echo -e '      8.  Download and Replace IoT Dev Labs scripts'
+	echo -e '      9.  Download and Replace GrovePi scripts'
+	echo -e '      10. Finish up and Reboot'
 	echo -e '\e[39m'
 	echo -e '\e[91m A restart will be required at the end of this script.'
 	echo -e '\e[39m'
@@ -91,22 +91,18 @@ fi
 #This section askes for input from the user for what the hostname
 #should be changed to. The IF statement checks to make sure there
 #was something inputed and the varible is not NULL.
-while true; do
-	read -p " Enter the hostname you would like to apply: " newhostname
-	if [ -z "$newhostname" ]; then
-		echo -e "\e[91m !!!!!!!!!!!!!!!!!!!!!"
-		echo -e "No Hostname Specified"
-		echo -e "Try Again"
-		echo -e "!!!!!!!!!!!!!!!!!!!!!!"
-		echo -e "\e[39m"
-	else
-		break;
-	fi
-done
-oldhostname="$( hostname )"
-hostname $newhostname
-sed -i "s/$oldhostname/$newhostname/g" /etc/hosts
-sed -i "s/$oldhostname/$newhostname/g" /etc/hostname
+read -p " Enter the hostname you would like to apply: " newhostname
+if [ -z "$newhostname" ]; then
+	echo -e "\e[91m !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+	echo -e "No Hostname Specified. No Change Has Been Made."
+	echo -e "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+	echo -e "\e[39m"	
+else
+	oldhostname="$( hostname )"		
+	hostname $newhostname
+	sed -i "s/$oldhostname/$newhostname/g" /etc/hosts
+	sed -i "s/$oldhostname/$newhostname/g" /etc/hostname
+fi
 
 #Start Extend the file system to maximize storage space
 echo
@@ -115,9 +111,8 @@ echo -e '   Step 2: Extend the file system to maximize storage space'
 echo -e ' =========================================================='
 echo -e '\e[39m'
 if [ $tutorial = "1" ]; then
-	echo -e "\e[93m In computer networking, a hostname is a label that is assigned\n to a device connected to a computer network and is used to identify\n the device in various forms of electronic communications such as\n the World Wide Web.\n"
-	echo -e " An example hostname would looks like the following: raspberrypi.local\n"
-	echo -e " With the .local domain name, you can use the hostname to connect\n to this device from another device on the same network.\n"
+	echo -e "\e[93m This script will expand that current file system to use all of the available space"
+	echo -e " on the SD card."
 	echo -e '\e[39m'
 	read -p " Press Enter to continue . . . " pressenter
 	echo
@@ -129,13 +124,12 @@ chmod 775 raspi-expand-rootfs.sh
 #Start Clean out Pi's home directory. 
 #For the LSR7 Pi's, we want to make sure nothing is left
 #in Pi's directory so a clean start can be made. The rm -rf removes everything in the directory
-#then deleted the folder itself. The folder is remade using the MKDIR command, then given Pi's
-#user the permission to use it with the CHOWN command.
-if [ $tutorial = "1" ]; then clear; fi
+#then deleted the folder itself. Then the default is restored from the compressed file and the
+#other main directories are created.
 echo
-echo -e '\e[92m ======================================='
-echo -e "   Step 3: Clean out Pi's home directory"
-echo -e ' ======================================='
+echo -e '\e[92m ===================================='
+echo -e "   Step 3: Reset Pi's user to default"
+echo -e ' ===================================='
 echo -e '\e[39m'
 if [ $tutorial = "1" ]; then
 	echo -e "\e[93m So there are not any modified files left after this script\n has been ran, this script will remove the /home/pi directory,\n then recreate it"
@@ -175,7 +169,6 @@ sudo apt-get update -y
 #End Update the Raspbian repositories
 
 #Start Update any installed packages using the repositories
-if [ $tutorial = "1" ]; then clear; fi
 echo
 echo -e '\e[92m =============================================================='
 echo -e '   Step 5: Update any installed packages using the repositories'
@@ -194,7 +187,6 @@ sudo apt-get upgrade -y
 
 #Start Install and Configure Tight VNC Server
 #Install Tight VNC Packages
-if [ $tutorial = "1" ]; then clear; fi
 echo
 echo -e '\e[92m ================================================='
 echo -e " Step 6: Install and Configure Tight VNC Server"
@@ -213,21 +205,10 @@ sudo chmod 755 /etc/init.d/vncserver
 sudo update-rc.d vncserver defaults
 #End Install and Configure Tight VNC Server
 
-
-
-
-
-
-
-
-
-
-
 #Copy startup script and enable printing of hostname and ip to Grove Pi LCD connected to I2C port
-if [ $tutorial = "1" ]; then clear; fi
 echo
 echo -e '\e[92m =========================================================='
-echo -e " Step 8: Setup LCD display script for displaying IP address"
+echo -e " Step 7: Setup LCD display script for displaying IP address"
 echo -e ' =========================================================='
 echo -e '\e[39m'
 if [ $tutorial = "1" ]; then
@@ -244,19 +225,51 @@ sudo update-rc.d print_ip defaults
 
 
 #Clone required projects from github to ~pi
+echo
+echo -e '\e[92m ================================================='
+echo -e " Step 8: Download and Replace IoT Dev Labs scripts"
+echo -e ' ================================================='
+echo -e '\e[39m'
+if [ $tutorial = "1" ]; then
+	echo -e "\e[93m This will download anything required for the IoT Dev Labs"
+	echo -e '\e[39m'
+	read -p ' Press Enter to continue . . . ' Pressenter
+fi
 cd ~pi
 /usr/bin/git clone https://github.com/IoTDevLabs/iot-educ.git
 cd ~pi/iot-educ/rpi
 ./install-python-packages.sh
 
+#Copy startup script and enable printing of hostname and ip to Grove Pi LCD connected to I2C port
+echo
+echo -e '\e[92m ============================================'
+echo -e " Step 9: Download and Replace GrovePi scripts"
+echo -e ' ============================================'
+echo -e '\e[39m'
+if [ $tutorial = "1" ]; then
+	echo -e "\e[93m This will download anything required for the GrovePi."
+	echo -e '\e[39m'
+	read -p ' Press Enter to continue . . . ' Pressenter
+fi
 cd ~pi
 /usr/bin/git clone https://github.com/DexterInd/GrovePi
 cd GrovePi/Script
 sudo chmod +x install.sh
 sudo ./install.sh
-
 cd ~pi/GrovePi/Software/Python
 sudo python setup.py install
 
+#Copy startup script and enable printing of hostname and ip to Grove Pi LCD connected to I2C port
+echo
+echo -e '\e[92m =========================================================='
+echo -e " Step 10: Finish up and Reboot"
+echo -e ' =========================================================='
+echo -e '\e[39m'
+if [ $tutorial = "1" ]; then
+	echo -e "\e[93m This portion will reset any permissions on Pi's files and"
+	echo -e ' reboot the system.'
+	echo -e '\e[39m'
+	read -p ' Press Enter to continue . . . ' Pressenter
+fi
 chown -R pi:pi /home/pi
 reboot
