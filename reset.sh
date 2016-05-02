@@ -1,8 +1,13 @@
 #!/bin/bash
+#Welcome to the Raspberry Pi Reset Script - Version 1.0 BETA
+#Last Compiled by Kevin Schulmeister on 5/1/16
+#This script was designed for the Lee's Summit School District Raspberry Pi's
+#This script also includes detailed tutorials and comments for others to learn basic scripting
 
 #The following makes sure the script is ran as root
 #This is required because some commands in this script require root privileges
 #The \e[91m potion of the text changes the output color to red for any characters after the m
+#The EUID varible shows which user ran the script. Root's EUID is 0, so if the EUID matched 0, the script was ran by root.
 if (( $EUID != 0 )); then
 	echo
 	echo -e "\e[91m !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -13,13 +18,23 @@ if (( $EUID != 0 )); then
 	echo -e "\e[39m"
 	exit
 fi
+
+#For a nice experience while running the script, it will occasionally clear the screen.
+#In a terminal window, the user will still be able to scroll up and view what had been cleared.
 clear
+
+#This portion of the script informs the user to everything the script will be changing
+#then confirms with the user they want to continue. If a user enters a Y or y, the script breaks out
+#of the while loop, and continues with the script. If the user enters a N or n, the script exits out
+#without error. If the user enters anything else, it will let the user know and restart the loop at the top.
+#This analysis of the yn1 variable is done in a CASE. Each entry of the CASE is checked in order. If it
+#matches, it runs the entries and continues down the list unless specified otherwise. The * entry is anything.
 while true; do
 	echo
 	echo
 	echo -e '\e[92m ****************************************************************************'
 	echo -e '   Welcome to the Raspberry Pi Reset Script - Version 1.0 BETA'
-	echo -e '   Compiled by Kevin Schulmeister on 4/16/16'
+	echo -e '   Compiled by Kevin Schulmeister on 5/1/16'
 	echo -e '   This script will reset and load the default configuration specfied below.'
 	echo -e ' ****************************************************************************'
 	echo -e '\e[39m'
@@ -46,6 +61,9 @@ while true; do
 	esac
 done
 
+#This portion of the script will enable tutorials and pauses in the script.
+#It is setting the variable tutorial to either 0 or 1.
+#Once again, a CASE is used to check for Yy or Nn.
 while true; do
 	read -p " Do you want to run this script with tutorials? [y/n] " yn2
 	case $yn2 in
@@ -55,6 +73,10 @@ while true; do
 	esac
 done
 
+#This portion of the script is changing the hostname of the Raspberry Pi in 3 locations
+#It is setting the hostname using the hostname command, and changing the hostname in the
+#/etc/hosts and /etc/hostname files. These 3 locations must be changed to effectively 
+#change the hostname of a system. For this, it will use the SED command
 echo
 echo -e '\e[92m ======================================================='
 echo -e '   Step 1: Change the hostname to the specified hostname'
@@ -87,7 +109,8 @@ sed -i "s/$oldhostname/$newhostname/g" /etc/hosts
 sed -i "s/$oldhostname/$newhostname/g" /etc/hostname
 
 
-#Start Clean out Pi's home directory
+#Start Clean out Pi's home directory. For the LSR7 Pi's, we want to make sure nothing is left
+#in Pi's directory so a clean start can be made.
 if [ $tutorial = "1" ]; then clear; fi
 echo
 echo -e '\e[92m ======================================='
