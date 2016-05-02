@@ -10,11 +10,11 @@
 #The EUID varible shows which user ran the script. Root's EUID is 0, so if the EUID matched 0, the script was ran by root.
 if (( $EUID != 0 )); then
 	echo
-	echo -e "\e[91m !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-	echo -e "ERROR: THIS SCRIPT MUST BE RAN AS ROOT"
-	echo -e "TRY TO RERUN THIS SCRIPT USING THE SUDO COMMAND"
-	echo -e "EXITING"
-	echo -e "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+	echo -e "\e[91m !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+	echo -e " ERROR: THIS SCRIPT MUST BE RAN AS ROOT"
+	echo -e " TRY TO RERUN THIS SCRIPT USING THE SUDO COMMAND"
+	echo -e " EXITING"
+	echo -e " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 	echo -e "\e[39m"
 	exit
 fi
@@ -109,8 +109,21 @@ sed -i "s/$oldhostname/$newhostname/g" /etc/hosts
 sed -i "s/$oldhostname/$newhostname/g" /etc/hostname
 
 
-#Start Clean out Pi's home directory. For the LSR7 Pi's, we want to make sure nothing is left
-#in Pi's directory so a clean start can be made.
+
+
+
+#MISSING STEP 2
+
+
+
+
+
+
+#Start Clean out Pi's home directory. 
+#For the LSR7 Pi's, we want to make sure nothing is left
+#in Pi's directory so a clean start can be made. The rm -rf removes everything in the directory
+#then deleted the folder itself. The folder is remade using the MKDIR command, then given Pi's
+#user the permission to use it with the CHOWN command.
 if [ $tutorial = "1" ]; then clear; fi
 echo
 echo -e '\e[92m ======================================='
@@ -189,6 +202,19 @@ tar zxC /home/pi -f vnc_files.tar.gz
 exit 0
 
 #Copy startup script and enable printing of hostname and ip to Grove Pi LCD connected to I2C port
+if [ $tutorial = "1" ]; then clear; fi
+echo
+echo -e '\e[92m ============================================================='
+echo -e " Step 7: Setup LCD display script for displaying IP address"
+echo -e ' =========================================================='
+echo -e '\e[39m'
+if [ $tutorial = "1" ]; then
+	echo -e "\e93m This script will display the Pi's IP address"
+	echo -e ' on the LCD display connected to the Grove Pi'
+	echo -e ' This script was initially created by Chris Soukup'
+	echo -e '\e39m'
+	read -p ' Press Enter to continue . . . ' Pressenter
+fi
 cp ./grove-get-ip.py ~pi/
 sudo cp ./print_ip /etc/init.d/print_ip
 sudo chmod 755 /etc/init.d/print_ip
