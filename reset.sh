@@ -46,10 +46,10 @@ while true; do
 	echo -e '      4.  Update the Raspbian repositories'
 	echo -e '      5.  Update any installed packages using the repositories'
 	echo -e '      6.  Install and Configure Tight VNC Server'
-	echo -e '      7.  Setup LCD display script for displaying IP address'
-	echo -e '      8.  Download and Replace IoT Dev Labs scripts'
-	echo -e '      9.  Download and Replace GrovePi scripts'
-	echo -e '      10. Reset desktop background to default'
+	echo -e "      7.  Reset Pi's user to default"
+	echo -e '      8.  Setup LCD display script for displaying IP address'
+	echo -e '      9.  Download and Replace IoT Dev Labs scripts'
+	echo -e '      10. Download and Replace GrovePi scripts'
 	echo -e '\e[39m'
 	echo -e '\e[91m A restart will be required at the end of this script.'
 	echo -e '\e[39m'
@@ -205,14 +205,13 @@ sudo apt-get install tightvncserver -y
 sudo cp ./vncserver /etc/init.d/vncserver
 sudo chmod 755 /etc/init.d/vncserver
 sudo update-rc.d vncserver defaults
-#Extract vnc passwd and xstartup files into the pi user's home directory
-tar zxC /home/pi -f vnc_files.tar.gz
 #End Install and Configure Tight VNC Server
 
 
 
 
-exit 0
+
+tar zxC /home/pi -f pi.tar.gz
 
 
 
@@ -222,7 +221,7 @@ exit 0
 if [ $tutorial = "1" ]; then clear; fi
 echo
 echo -e '\e[92m ============================================================='
-echo -e " Step 7: Setup LCD display script for displaying IP address"
+echo -e " Step 8: Setup LCD display script for displaying IP address"
 echo -e ' =========================================================='
 echo -e '\e[39m'
 if [ $tutorial = "1" ]; then
