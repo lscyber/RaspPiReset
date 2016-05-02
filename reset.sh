@@ -145,8 +145,8 @@ if [ $tutorial = "1" ]; then
 fi
 umount /home/pi/.gvfs 2> /dev/null
 rm -rf /home/pi
-mkdir /home/pi
-chown pi:pi /home/pi
+tar zxC /home/ -f pi.tar.gz
+chown -R pi:pi /home/pi
 #End Clean out Pi's home directory
 
 #Start Update the Raspbian repositories
@@ -211,7 +211,7 @@ sudo update-rc.d vncserver defaults
 
 
 
-tar zxC /home/pi -f pi.tar.gz
+
 
 
 
