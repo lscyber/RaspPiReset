@@ -8,7 +8,7 @@ sudo mkdir /reset
 cd /reset
 sudo git clone https://github.com/lscyber/rasppi.git
 cd rasppi
-sudo chmod -x reset.sh
+sudo chmod 775 reset.sh
 sudo ./reset.sh
 ```
 3. Follow the on-screen instructions.
