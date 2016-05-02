@@ -153,7 +153,6 @@ mkdir /home/pi/Music
 mkdir /home/pi/Public
 mkdir /home/pi/Templates
 mkdir /home/pi/Videos
-chown -R pi:pi /home/pi
 #End Clean out Pi's home directory
 
 #Start Update the Raspbian repositories
@@ -259,4 +258,5 @@ sudo ./install.sh
 cd ~pi/GrovePi/Software/Python
 sudo python setup.py install
 
+chown -R pi:pi /home/pi
 reboot
