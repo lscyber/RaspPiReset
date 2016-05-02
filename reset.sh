@@ -259,15 +259,15 @@ sudo ./install.sh
 cd ~pi/GrovePi/Software/Python
 sudo python setup.py install
 
-#Copy startup script and enable printing of hostname and ip to Grove Pi LCD connected to I2C port
+#Finishing up
 echo
 echo -e '\e[92m =========================================================='
 echo -e " Step 10: Finish up and Reboot"
 echo -e ' =========================================================='
 echo -e '\e[39m'
 if [ $tutorial = "1" ]; then
-	echo -e "\e[93m This portion will reset any permissions on Pi's files and"
-	echo -e ' reboot the system.'
+	echo -e "\e[93m This portion will reset any permissions on Pi's files, setup"
+	echo -e ' the wireless to connect to LSSD_Handheld, and reboot the system.'
 	echo -e '\e[39m'
 	read -p ' Press Enter to continue . . . ' Pressenter
 fi
