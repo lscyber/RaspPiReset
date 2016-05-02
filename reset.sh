@@ -220,15 +220,15 @@ tar zxC /home/pi -f pi.tar.gz
 #Copy startup script and enable printing of hostname and ip to Grove Pi LCD connected to I2C port
 if [ $tutorial = "1" ]; then clear; fi
 echo
-echo -e '\e[92m ============================================================='
+echo -e '\e[92m =========================================================='
 echo -e " Step 8: Setup LCD display script for displaying IP address"
 echo -e ' =========================================================='
 echo -e '\e[39m'
 if [ $tutorial = "1" ]; then
-	echo -e "\e93m This script will display the Pi's IP address"
+	echo -e "\e[93m This script will display the Pi's IP address"
 	echo -e ' on the LCD display connected to the Grove Pi'
 	echo -e ' This script was initially created by Chris Soukup'
-	echo -e '\e39m'
+	echo -e '\e[39m'
 	read -p ' Press Enter to continue . . . ' Pressenter
 fi
 cp ./grove-get-ip.py ~pi/
