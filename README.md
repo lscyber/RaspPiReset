@@ -1,6 +1,6 @@
-# rasppi
+# Raspberry Pi Reset Script
 
-#Instructions
+## Instructions
 1. On your Raspberry Pi, open a terminal window.
 2. Type the following commands to download and run the reset script:
 ```
