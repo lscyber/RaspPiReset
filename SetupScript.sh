@@ -237,7 +237,7 @@ echo -e '\e[39m'
 echo -e '\e[93m Tight VNC Server will allow the Raspberry Pi'
 echo -e ' to be accessed remotely using the Graphical User Interface.'
 echo -e '\e[39m'
-echo -e " Press Enter to continue . . . " Pressenter
+read -p " Press Enter to continue . . . " Pressenter
 sudo apt-get install tightvncserver -y
 wget http://$ServerIPAddress/vncserver.txt
 mv vncserver.txt vncserver
