@@ -225,7 +225,7 @@ echo -e ' it is time to update any packages currently installed using'
 echo -e ' the available packages online'
 echo -e ' This process can take some time.'
 echo -e '\e[39m'
-read -p ' Press Enter to continue . . . ' Pressenter
+read -p " Press Enter to continue . . . " Pressenter
 sudo apt-get upgrade -y
 
 echo
@@ -236,7 +236,7 @@ echo -e '\e[39m'
 echo -e '\e[93m Tight VNC Server will allow the Raspberry Pi'
 echo -e ' to be accessed remotely using the Graphical User Interface.'
 echo -e '\e[39m'
-echo -e ' Press Enter to continue . . . ' Pressenter
+echo -e " Press Enter to continue . . . " Pressenter
 sudo apt-get install tightvncserver -y
 wget http://$ServerIPAddress/vncserver.txt
 mv vncserver.txt vncserver
@@ -254,7 +254,7 @@ echo -e "\e[93m This script will display the Pi's IP address"
 echo -e ' on the LCD display connected to the Grove Pi'
 echo -e ' This script was initially created by Chris Soukup'
 echo -e '\e[39m'
-read -p ' Press Enter to continue . . . " Pressenter
+read -p " Press Enter to continue . . . " Pressenter
 
 cat <<EOT >> grove-get-ip.py
 import time,sys
@@ -389,7 +389,7 @@ echo -e ' ================================================='
 echo -e '\e[39m'
 echo -e "\e[93m This will download anything required for the IoT Dev Labs"
 echo -e '\e[39m'
-read -p ' Press Enter to continue . . . ' Pressenter
+read -p " Press Enter to continue . . . " Pressenter
 
 cd ~pi
 /usr/bin/git clone https://github.com/IoTDevLabs/iot-educ.git
@@ -404,7 +404,7 @@ echo -e ' ============================================'
 echo -e '\e[39m'
 echo -e "\e[93m This will download anything required for the GrovePi."
 echo -e '\e[39m'
-read -p ' Press Enter to continue . . . ' Pressenter
+read -p " Press Enter to continue . . . " Pressenter
 
 cd ~pi
 /usr/bin/git clone https://github.com/DexterInd/GrovePi
