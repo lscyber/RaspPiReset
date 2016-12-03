@@ -380,6 +380,7 @@ EOT
 mv ./print_ip /etc/init.d/print_ip
 chmod 755 /etc/init.d/print_ip
 update-rc.d print_ip defaults
+echo dtparam=i2c_arm=on >> /boot/config.txt
 fi
 
 #Clone required projects from github to ~pi
@@ -422,7 +423,8 @@ echo -e " Step 10: Finish up and Reboot"
 echo -e ' =========================================================='
 echo -e '\e[39m'
 echo -e "\e[93m This portion will reset any permissions on Pi's files, setup"
-echo -e ' the wireless to connect to LSSD_Handheld, and reboot the system.'
+echo -e ' the wireless to connect to LSSD_Handheld, set the time zone to'
+echo -e ' America/Chicago, and reboot the system.'
 echo -e '\e[39m'
 read -p ' Press Enter to continue . . . ' Pressenter
 chown -R pi:pi /home/pi
@@ -436,5 +438,6 @@ network={
 }
 EOT
 cp wpa_supplicant.conf /etc/wpa_supplicant/
+cp /usr/share/zoneinfo/America/Chicago /etc/localtime
 read -p " Press Enter to Reboot . . . " Pressenter
 reboot
