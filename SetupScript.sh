@@ -33,7 +33,7 @@ while true; do
 	echo
 	echo -e '\e[92m *****************************************'
 	echo -e '   Welcome to the Raspberry Pi Setup Script - Version 1.0'
-	echo -e '   Compiled by Kevin Schulmeister on 12/1/16'
+	echo -e '   Compiled by Kevin Schulmeister on 12/3/16'
 	echo -e '   This script will reset and load the default configuration specified below.'
 	echo -e ' *****************************************'
 	echo -e '\e[39m'
