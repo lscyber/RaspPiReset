@@ -1,6 +1,6 @@
 #!/bin/bash
 #Welcome to the Raspberry Pi Setup Script - Version 1.0
-#Last Compiled by Kevin Schulmeister on 12/1/16
+#Last Compiled by Kevin Schulmeister on 12/3/16
 #This script was designed for the Lee's Summit School District Raspberry Pi's
 #This script also includes detailed tutorials and comments for others to learn basic scripting
 
@@ -421,14 +421,20 @@ echo -e '\e[92m =========================================================='
 echo -e " Step 10: Finish up and Reboot"
 echo -e ' =========================================================='
 echo -e '\e[39m'
-if [ $tutorial = "1" ]; then
-	echo -e "\e[93m This portion will reset any permissions on Pi's files, setup"
-	echo -e ' the wireless to connect to LSSD_Handheld, and reboot the system.'
-	echo -e '\e[39m'
-	read -p ' Press Enter to continue . . . ' Pressenter
-fi
+echo -e "\e[93m This portion will reset any permissions on Pi's files, setup"
+echo -e ' the wireless to connect to LSSD_Handheld, and reboot the system.'
+echo -e '\e[39m'
+read -p ' Press Enter to continue . . . ' Pressenter
 chown -R pi:pi /home/pi
-wget http://$ServerIPAddress/wpa_supplicant.conf
+cat <<EOT >> wpa_supplicant.conf
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+	ssid="LSSD_HANDHELD"
+	key_mgmt=NONE
+}
+EOT
 cp wpa_supplicant.conf /etc/wpa_supplicant/
 read -p " Press Enter to Reboot . . . " Pressenter
 reboot
