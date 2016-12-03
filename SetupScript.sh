@@ -241,7 +241,7 @@ echo -e " Press Enter to continue . . . " Pressenter
 sudo apt-get install tightvncserver -y
 wget http://$ServerIPAddress/vncserver.txt
 mv vncserver.txt vncserver
-sudo cp ./vncserver /etc/init.d/vncserver
+sudo mv ./vncserver /etc/init.d/vncserver
 sudo chmod 755 /etc/init.d/vncserver
 sudo update-rc.d vncserver defaults
 
@@ -437,7 +437,7 @@ network={
 	key_mgmt=NONE
 }
 EOT
-cp wpa_supplicant.conf /etc/wpa_supplicant/
+mv wpa_supplicant.conf /etc/wpa_supplicant/
 cp /usr/share/zoneinfo/America/Chicago /etc/localtime
 read -p " Press Enter to Reboot . . . " Pressenter
 reboot
