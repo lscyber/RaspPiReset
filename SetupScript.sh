@@ -156,7 +156,7 @@ cat <<\EOF > /etc/init.d/resize2fs_once &&
 
 . /lib/lsb/init-functions
 
-case "$1" in
+case "\$1" in
 	start)
 		log_daemon_msg "Starting resize2fs_once" &&
 		resize2fs /dev/mmcblk0p2 &&
@@ -165,7 +165,7 @@ case "$1" in
 		log_end_msg $?
 		;;
 	*)
-		echo "Usage: $0 start" >&2
+		echo "Usage: \$0 start" >&2
 		exit 3
 		;;
 esac
@@ -343,8 +343,8 @@ cat <<EOT >> print_ip
 
 ### BEGIN INIT INFO
 # Provides:          print_ip
-# Required-Start:    $remote_fs x11-common
-# Required-Stop:     $remote_fs
+# Required-Start:    \$remote_fs x11-common
+# Required-Stop:     \$remote_fs
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # X-Interactive:     true
@@ -357,11 +357,11 @@ HOME=/home/pi
 
 export USER HOME
 
-case "$1" in
+case "\$1" in
   start)
     echo "Printing Hostname and IP to Grove LCD Display."
     sleep 30
-    /usr/bin/python $HOME/grove-get-ip.py
+    /usr/bin/python \$HOME/grove-get-ip.py
     ;;
 
   stop)
